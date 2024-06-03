@@ -1,0 +1,25 @@
+---
+title: "Exercise1"
+author: "Rama Malhis"
+date: "2024-06-03"
+output: html_document
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+## Strengths
+
+Very hard to lose files with git
+
+Great for collaboration
+
+Fast
+
+## Weaknesses
+
+complicated to use for biggeners
+
+Struggles with large
+
+Not good for storing data!
