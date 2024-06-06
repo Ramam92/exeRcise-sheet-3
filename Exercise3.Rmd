@@ -1,0 +1,86 @@
+---
+title: "Exercise3"
+author: "Rama Malhis"
+date: "2024-06-06"
+output: html_document
+---
+
+b)
+```{r}
+library(tidyverse)
+library(knitr)
+
+names2022 <- read.csv("open_data_portal_2022.csv")
+names2022
+names2023 <- read.csv("vornamen-muenchen-2023.csv")
+names2023
+```
+
+```{r}
+
+typeof(names2022$Anzahl) #character
+unique(names2022$Anzahl)
+
+# The type is character because some of them have the value "4 oder weniger"
+# The same by 'names2023'
+
+names2022 <- names2022 %>%
+  mutate(Anzahl = case_when(
+    Anzahl == "4 oder weniger" ~ "4",
+    TRUE ~ Anzahl
+  )) %>%
+  mutate(Anzahl = as.numeric(Anzahl))
+names2022
+
+names2023 <- names2023 %>%
+  mutate(Anzahl = case_when(
+    Anzahl == "4 oder weniger" ~ "4",
+    TRUE ~ Anzahl
+  )) %>%
+  mutate(Anzahl = as.numeric(Anzahl))
+names2023
+# I replaced the value "4 or less" with just 4 to convert the variable to numeric
+```
+
+c)
+```{r}
+sum22 <- sum(names2022$Anzahl)
+sum22
+sum23 <- sum(names2023$Anzahl)
+sum23
+# 25199 babies were born in 2022, more than 24229 in 2023
+
+```
+
+d)
+```{r}
+names2022 <- names2022 %>%
+  mutate(year = 2022)  
+names2022
+names2023 <- names2023 %>%
+  mutate(year = 2023)  
+names2023
+```
+
+e)
+```{r}
+combined_name <- bind_rows(names2022, names2023)
+combined_name
+```
+
+f)
+```{r}
+name_counts <- combined_name %>%
+  group_by(Vorname) %>%
+  summarize(total_count = sum(Anzahl) )%>%
+  arrange(desc(total_count))
+
+
+top_10_names <- name_counts %>%
+  top_n(10, wt = total_count)
+
+top_10_names %>%
+  arrange(desc(total_count)) %>%
+  kable(caption = "Top 10 Most Popular Names Across 2022 and 2023")
+```
+
