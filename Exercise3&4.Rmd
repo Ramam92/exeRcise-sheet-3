@@ -1,6 +1,6 @@
 ---
 title: "Exercise3&4"
-author: "Rama Malhis"
+author: "Rama Malhis (12585219)"
 date: "2024-06-06"
 output: html_document
 ---
